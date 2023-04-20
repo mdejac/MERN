@@ -1,0 +1,45 @@
+.App{
+  width: 950px;
+  background-color: #dddddd;
+  margin: 0px auto;
+  padding: 25px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sub-content {
+  height: 250px;
+  width: 210px;
+  background-color: #ffd966;
+}
+
+#header {
+  height: 150px;
+  background-color: #6aa84f;
+  margin-bottom: 25px;
+}
+
+#side-nav {
+  height: 350px;
+  width: 200px;
+  background-color: #6fa8dc;
+}
+
+#main {
+  height: 400px;
+  width: 700px;
+  background-color: #e06666;
+  margin-left: 25px;
+  padding: 25px;
+}
+
+#advertisement {
+  height: 125px;
+  width: 100%;
+  background-color: #b4a7d6;
+  margin-top: 25px;
+}
+
