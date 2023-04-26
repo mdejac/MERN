@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="App">
       <ul>
-        {allPokemon.map(pokemon=> <li key={pokemon.name}>{pokemon.name}</li> )}
+        {allPokemon.map(pokemon => <li key={pokemon.name}>{pokemon.name}</li> )}
       </ul>
     </div>
   );
