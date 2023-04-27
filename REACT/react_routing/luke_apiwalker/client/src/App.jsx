@@ -17,14 +17,14 @@ function App() {
     <div className="App">
       <Form />
       <Routes>
-        {/* <Route path='/:searchType/:id' element={<DisplayInfo />} /> */}
-        <Route path='/people/:id' element={<DisplayPeople />} />
+        <Route path='/:searchType/:id' element={<DisplayInfo />} />
+        {/* <Route path='/people/:id' element={<DisplayPeople />} />
         <Route path='/planets/:id' element={<DisplayPlanets />} />
         <Route path='/films/:id' element={<DisplayFilms />} />
         <Route path='/species/:id' element={<DisplaySpecies />} />
         <Route path='/starships/:id' element={<DisplayStarships />} />
         <Route path='/vehicles/:id' element={<DisplayVehicles />} />
-        <Route path='/error' element={<DisplayError />} />
+        <Route path='/error' element={<DisplayError />} /> */}
       </Routes>
     </div>
   );
