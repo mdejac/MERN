@@ -1,17 +1,16 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 
-const Form = ({searchInfo, setSearchInfo}) => {
+const Form = () => {
   const navigate = useNavigate();
   const [formInfo, setFormInfo] = useState({
-    searchType: searchInfo.searchType,
-    id:searchInfo.id
+    searchType: "people",
+    id:1
   })
 
   const handleSubmit = e => {
     e.preventDefault();
     navigate(`/${formInfo.searchType}/${formInfo.id}`);
-    setSearchInfo(formInfo);
   }
 
   return (
@@ -29,7 +28,7 @@ const Form = ({searchInfo, setSearchInfo}) => {
     </div>
     <div>
       <label className="me-2" htmlFor="id">ID : </label>
-      <input type="number" id='id' value={formInfo.id} onChange={e => setFormInfo({...formInfo, id:e.target.value})}/>
+      <input type="number" id='id' min="1" value={formInfo.id} onChange={e => setFormInfo({...formInfo, id:e.target.value})}/>
     </div>
     <button type='submit'>Search</button>
   </form>

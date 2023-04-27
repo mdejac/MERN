@@ -1,14 +1,18 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import obiwan from '../not-the-droids-photo.jpeg';
-import {Link} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
 
-const DisplayInfo = ({searchInfo}) => {
+import obiwanPic from '../not-the-droids-photo.jpeg';
+
+const DisplayInfo = () => {
     const [responseData, setResponseData] = useState(null);
     const [homeWorld, setHomeWorld] = useState(null);
-    
+    const [planetId, setPlanetId] = useState(null);
+    const {searchType, id} = useParams();
+
     useEffect(() => {
-        axios.get(`https://swapi.dev/api/${searchInfo.searchType}/${searchInfo.id}`)
+        console.log(id);
+        axios.get(`https://swapi.dev/api/${searchType}/${id}`)
         .then(res => {
             console.log(res.data);
             setResponseData(res.data);
@@ -17,12 +21,25 @@ const DisplayInfo = ({searchInfo}) => {
             console.log(err);
             setResponseData(null);
         });
-    },[searchInfo]);
+    },[searchType,id]);
+
+    useEffect(() => {
+        if (responseData?.homeworld){
+            let planetId = responseData.homeworld.split("/")
+            planetId = planetId[planetId.length-2]
+            axios.get(`${responseData.homeworld}`)
+            .then(res => {
+                setHomeWorld(res.data.name);
+                setPlanetId(planetId)
+            })
+            .catch(err => console.log(err));
+
+        }
+    }, [responseData]);
 
     const renderOutput = () => {
-        switch (searchInfo.searchType) {
-            case "people" :
-                axios.get(`${responseData.homeworld}`).then(res => setHomeWorld(res.data.name));
+        switch (searchType) {
+            case "people" :           
                 return ( <div>
                             <h1>{responseData.name}</h1>
                             <p>Height: {responseData.height}cm</p>
@@ -30,7 +47,7 @@ const DisplayInfo = ({searchInfo}) => {
                             <p>Hair color: {responseData.hair_color}</p>
                             <p>Eye color: {responseData.eye_color}</p>
                             <p>Birth year: {responseData.birth_year}</p>
-                            <p>Planet name: <Link to ="" >{homeWorld} </Link></p>
+                            <p>Planet name: <Link to ={`/planets/${planetId}`} >{homeWorld} </Link></p>
                          </div> )
             case "planets" :
                 return ( <div>
@@ -71,7 +88,7 @@ const DisplayInfo = ({searchInfo}) => {
 
     return (
         <div className="d-flex mt-5 justify-content-center">
-            {responseData ? renderOutput() : <div><h1>These aren't the droids you're looking for.</h1> <img src={obiwan} alt="obi wan"/></div>}
+            {responseData ? renderOutput() : <div><h1>These aren't the droids you're looking for.</h1> <img src={obiwanPic} alt="obi wan"/></div>}
         </div>
     )
 }

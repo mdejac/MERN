@@ -1,17 +1,30 @@
 import './App.css';
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {Routes, Route} from 'react-router-dom'
 import Form from './components/Form';
 import DisplayInfo from './components/DisplayInfo';
+import DisplayPeople from './components/DisplayPeople';
+import DisplayPlanets from './components/DisplayPlanets';
+import DisplayError from './components/DisplayError';
+import DisplayFilms from './components/DisplayFilms';
+import DisplaySpecies from './components/DisplaySpecies';
+import DisplayStarships from './components/DisplayStarships';
+import DisplayVehicles from './components/DisplayVehicles';
 
 
 function App() {
-  const [searchInfo, setSearchInfo] = useState({searchType:"people", id:0, submitted:false})
   return (
     <div className="App">
-      <Form searchInfo={searchInfo} setSearchInfo={setSearchInfo}/>
+      <Form />
       <Routes>
-        <Route path='/:searchType/:id' element={<DisplayInfo searchInfo={searchInfo}/>} />
+        {/* <Route path='/:searchType/:id' element={<DisplayInfo />} /> */}
+        <Route path='/people/:id' element={<DisplayPeople />} />
+        <Route path='/planets/:id' element={<DisplayPlanets />} />
+        <Route path='/films/:id' element={<DisplayFilms />} />
+        <Route path='/species/:id' element={<DisplaySpecies />} />
+        <Route path='/starships/:id' element={<DisplayStarships />} />
+        <Route path='/vehicles/:id' element={<DisplayVehicles />} />
+        <Route path='/error' element={<DisplayError />} />
       </Routes>
     </div>
   );
