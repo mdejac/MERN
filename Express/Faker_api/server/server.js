@@ -38,7 +38,9 @@ app.get('/api/companies/new', (req, res) => {
     res.json(createCompany());
 })
 
-
+app.get('/api/user/company', (req, res) => {
+    res.json({user: createUser(), company: createCompany()})
+})
 
 
 app.listen(port, () => console.log(`Listening on port: ${port}`) );
