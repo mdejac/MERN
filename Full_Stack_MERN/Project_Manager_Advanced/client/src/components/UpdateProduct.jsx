@@ -11,6 +11,7 @@ const UpdateProduct = () => {
     const [productInfo, setProductInfo] = useState({});
     const navigate = useNavigate();
     const [loaded, setLoaded] = useState(false);
+    const [errors, setErrors] = useState([]);
 
     useEffect(() => {
         axios.get(`http://localhost:8000/api/products/${id}`)
@@ -24,7 +25,14 @@ const UpdateProduct = () => {
     const updateProduct = product => {
         axios.patch(`http://localhost:8000/api/products/edit/${id}`, product)
             .then(res => navigate('/products'))
-            .catch(err => console.log(err));
+            .catch(err => {
+                const errorResponse = err.response.data.errors;
+                const errorArr = [];
+                for (const key of Object.keys(errorResponse)) {
+                    errorArr.push(errorResponse[key].message)
+                }
+                setErrors(errorArr);
+            });
     }
 
     return (
@@ -33,6 +41,7 @@ const UpdateProduct = () => {
             {
                 loaded && (
                 <>
+                    {errors.map((err, index) => <p key={index}>{err}</p>)}
                     <ProductForm onSubmitProp={updateProduct} initialState={productInfo} />
                     <DeleteButton id={productInfo._id} successCallBack={() => navigate('/products')} />
                     <HomeButton/>

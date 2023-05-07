@@ -5,7 +5,7 @@ module.exports= {
     createProduct: (req, res) => {
         Product.create(req.body)
             .then(product => res.json(product))
-            .catch(err => res.json(err));
+            .catch(err => res.status(400).json(err));
     },
 
     getAllProducts: (req, res) => {
@@ -23,7 +23,7 @@ module.exports= {
     updateProduct: (req, res) => {
         Product.findByIdAndUpdate({_id: req.params.id}, req.body, {new:true, runValidators: true})
             .then(product => res.json(product))
-            .catch(err => res.json(err));
+            .catch(err => res.status(400).json(err));
     },
 
     deleteProduct: (req, res) => {
