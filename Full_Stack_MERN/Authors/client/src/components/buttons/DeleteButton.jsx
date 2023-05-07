@@ -10,7 +10,7 @@ const DeleteButton = ({id, successCallBack}) => {
     }
 
     return (
-      <button className='btn btn-link' onClick={deleteObj}>Delete</button>
+      <button className='btn btn-danger' onClick={deleteObj}>Delete</button>
     )
 }
 
