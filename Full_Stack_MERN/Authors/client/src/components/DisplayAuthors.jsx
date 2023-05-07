@@ -20,10 +20,6 @@ const DisplayAuthors = () => {
             .catch(err => console.log(err));
     }
     
-    const newArr = allAuthors
-    newArr.sort((a,b) => a.name-b.name)
-    console.log(newArr)
-
     return (
         <div className='App'>
             <AddButton/>
