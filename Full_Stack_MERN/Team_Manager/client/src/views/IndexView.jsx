@@ -24,18 +24,18 @@ const IndexView = () => {
         <Navbar/>
         <div className='container border border-black mx-auto p-4'>
             <h3 className="text-start">List | <AddButton/></h3>
-            <table className='table table-striped table-bordered align-middle text-center'>
+            <table className='table table-striped table-bordered align-middle'>
                 <thead>
                     <th>Name</th>
                     <th>Perferred Position</th>
-                    <th>Actions</th>
+                    <th className='text-center'>Actions</th>
                 </thead>
                 <tbody className='table-group-divider'>
                     {allObjects.sort((a,b) => a.name.localeCompare(b.name)).map(obj => (
                         <tr key={obj._id}>
-                            <td><Link className='btn btn-link' to={`/players/${obj._id}/edit`}>{obj.name}</Link></td>
+                            <td><Link to={`/players/${obj._id}/edit`}>{obj.name}</Link></td>
                             <td>{obj.perferredPosition}</td>
-                            <td><DeleteButton id={obj._id} successCallBack={() => removeFromDom(obj._id)}/></td>
+                            <td className='text-center'><DeleteButton id={obj._id} successCallBack={() => removeFromDom(obj._id)}/></td>
                         </tr>
                     ))}
                 </tbody>

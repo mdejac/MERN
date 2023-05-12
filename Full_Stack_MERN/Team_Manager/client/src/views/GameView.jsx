@@ -20,21 +20,21 @@ const GameView = () => {
             <Navbar/>
             <div className='container border border-black p-3'>
                 <h2 className='text-start'>Player Status - Game {gameNumber}</h2>
-                <span>
+                <div className='text-center'>
                     <Link className='mx-2' to={`/status/game/1`}>Game 1</Link> |
                     <Link className='mx-2' to={`/status/game/2`}>Game 2</Link> |
                     <Link className='mx-2' to={`/status/game/3`}>Game 3</Link>
-                </span>
+                </div>
                 <div className='container border border-black mt-3 p-4'>
                     <table className='table table-striped table-bordered align-middle'>
                         <thead>
                             <th>Name</th>
-                            <th>Game Status</th>
+                            <th className='text-center'>Game Status</th>
                         </thead>
                         <tbody className='table-group-divider'>
                             {allObjects.sort((a,b) => a.name.localeCompare(b.name)).map(obj => (
                                 <tr key={obj._id}>
-                                    <td>{obj.name}</td>
+                                    <td><Link to={`/players/${obj._id}/edit`}>{obj.name}</Link></td>
                                     <td><StatusButtons gameNumber={gameNumber} obj={obj}/></td>
                                 </tr>
                             ))}
