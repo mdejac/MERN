@@ -37,5 +37,5 @@ class BankAccount {
 const account1 = new BankAccount(.03, 10000);
 const account2 = new BankAccount(.08, 25000);
 
-checking.deposit(500).deposit(500).deposit(500).withdraw(1000).yieldInterest().displayAccountInfo();
-savings.deposit(500).deposit(500).withdraw(500).withdraw(1000).withdraw(1000).withdraw(1000).yieldInterest().displayAccountInfo();
+account1.deposit(500).deposit(500).deposit(500).withdraw(1000).yieldInterest().displayAccountInfo();
+account2.deposit(500).deposit(500).withdraw(500).withdraw(1000).withdraw(1000).withdraw(1000).yieldInterest().displayAccountInfo();
