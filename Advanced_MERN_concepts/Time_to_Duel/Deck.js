@@ -3,6 +3,11 @@ class Card {
         this.name = name;
         this.cost = cost;
     }
+
+    displayInfo() {
+        console.log(this.name,'\nCost:', this.cost);
+        return this
+    }
 }
 
 class Unit extends Card {
@@ -17,8 +22,8 @@ class Unit extends Card {
         return this
     }
 
-    display() {
-        console.log('Name :', this.name);
+    displayInfo() {
+        super.displayInfo();
         console.log('Power :', this.power);
         console.log('Resilience :', this.res);
         return this
@@ -41,6 +46,12 @@ class Effect extends Card {
         }
         return this
     }
+
+    displayInfo() {
+        super.displayInfo();
+        console.log(this.text);
+        return this
+    }
 }
 
 const unit1 = new Unit('Red Belt Ninja', 3, 3, 4);
@@ -53,5 +64,9 @@ const effect3 = new Effect('Pair Programming', 3, "Increase target's power by 2"
 effect3.play(unit1);
 unit1.attack(unit2);
 
-unit1.display();
-unit2.display();
+unit1.displayInfo();
+unit2.displayInfo();
+
+effect1.displayInfo();
+effect2.displayInfo();
+effect3.displayInfo();
