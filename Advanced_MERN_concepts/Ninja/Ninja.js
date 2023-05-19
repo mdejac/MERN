@@ -27,5 +27,7 @@ class Ninja {
 
 
 const hiro = new Ninja('Hiro');
+const ninja1 = new Ninja("Hyabusa", 115);
 
 hiro.sayName().showStats().drinkSake().showStats();
+ninja1.sayName().showStats().drinkSake().showStats();
