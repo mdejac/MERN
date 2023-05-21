@@ -72,10 +72,14 @@ const reverseString = str => {
     return newStr
 }
 
-// start = performance.now();
-// const reversed1 = story.split("").reverse().join("");
-// console.log(`This took ${performance.now() - start} milliseconds to run.`);
+start = performance.now();
+const reversed1 = story.split("").reverse().join("");
+console.log(`Platform example : This took ${performance.now() - start} milliseconds to run.`);
 
 start = performance.now();
 reverseString(story);
-console.log(`This took ${performance.now() - start} milliseconds to run.`);
+console.log(`My function : This took ${performance.now() - start} milliseconds to run.`);
+
+start = performance.now();
+const reversed3 = story.split("").reduce((acc, char) => char + acc, '');
+console.log(`Cheaty Nandor Google search : This took ${performance.now() - start} milliseconds to run.`);
