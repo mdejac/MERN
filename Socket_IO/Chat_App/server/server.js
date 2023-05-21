@@ -3,7 +3,7 @@ const app = express();
 const cors = require('cors');
 const socket = require('socket.io');
 const port = 8000;
-app.use(cors());
+app.use(cors({origin:true}));
  
 const server = app.listen(port, () => {
     console.log(`Listening on port: ${port}`)
@@ -11,7 +11,7 @@ const server = app.listen(port, () => {
  
 const io = socket(server, {
     cors: {
-        origin: 'http://localhost:3000',
+        origin: true,
         methods: ['GET', 'POST'],
         allowedHeaders: ['*'],
         credentials: true,
