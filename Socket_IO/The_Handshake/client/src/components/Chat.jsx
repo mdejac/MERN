@@ -5,7 +5,6 @@ const Chat = () => {
     const [socket] = useState(()=>io(':8000'));
 
     useEffect(() => {
-        console.log('Is this running?');
         socket.on('Welcome', data => console.log(data));
         return () => socket.off("Welcome");
     }, [socket]);
