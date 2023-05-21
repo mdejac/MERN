@@ -13,20 +13,39 @@ const Chat = ({name}) => {
     
     useEffect(() => {
         socket.on('WELCOME_MESSAGE', data => {
-            console.log(data, 'Your socket id is', socket.id)
+            console.log(data, 'Your socket id is', socket.id);
             socket.emit("JOIN_MESSAGE", {joined:name});
             setFormInput(prevState => {
                 return {...prevState, id:socket.id}
             })
+            socket.on('ALL_MESSAGES', data => {
+                setMessages(prevMessages => {
+                    return [...prevMessages, ...data]
+                });
+            });
         });
-        return () => socket.off("WELCOME_MESSAGE");
+        return () => {
+            socket.off("WELCOME_MESSAGE");
+            socket.off("ALL_MESSAGES");
+        }
     }, [socket]);
 
     useEffect(() => {
         socket.on("NEW_MESSAGE", msg => {
-            console.log('running man')
             setMessages(prevMessages => {
-                return [...prevMessages, msg];
+                return [msg, ...prevMessages]
+            });
+        });
+
+        socket.on("NEW_JOIN_MESSAGE", msg => {
+            setMessages(prevMessages => {
+                return [msg, ...prevMessages]
+            });
+        });
+
+        socket.on("DISCONNECT_MESSAGE", msg => {
+            setMessages(prevMessages => {
+                return [msg, ...prevMessages]
             });
         });
     }, []);
@@ -34,7 +53,7 @@ const Chat = ({name}) => {
     const handleSubmit = e => {
         e.preventDefault();
         socket.emit("SEND_MESSAGE", formInput);
-        setMessages([...messages, formInput]);
+        setMessages([formInput, ...messages]);
         setFormInput(initialState);
     }
 
@@ -45,19 +64,24 @@ const Chat = ({name}) => {
     return (
         <div className='vh-100'>
             <div className='h-75 border border-black m-5 '>
-                <div className='h-75 border border-black mx-2 mt-2 p-2' style={{overflowY:'auto'}}>
+                <div className='h-75 border border-black mx-2 mt-2 p-2 d-flex flex-column-reverse' style={{overflowY:'auto'}}>
                     {messages.map((msg, i) => (
                         <div key={i} className='text-start'>
                             <div className="row justify-content-between">
-                                <div className="col-4">
-                                    {msg.id !== socket.id && (
+                                <div className="col-5">
+                                    {msg.id && msg.id !== socket.id && msg.id !== 'server' ? 
                                         <div className='p-2 mb-2 text-break' style={{backgroundColor:'lightblue'}}>
                                             <p>{msg.from} says,</p>
                                             <p>{msg.msg}</p>
+                                        </div> : ""
+                                    }
+                                </div>
+                                <div className="col-5">
+                                    {msg.id === 'server' && (
+                                        <div className='p-2 mb-2 text-break'>
+                                            <p>{msg.msg}</p>
                                         </div>
                                     )}
-                                </div>
-                                <div className="col-4">
                                     {msg.id === socket.id && (
                                         <div className='p-2 mb-2 text-break' style={{backgroundColor:'lightgreen'}}>
                                             <p>{msg.from} says,</p>
